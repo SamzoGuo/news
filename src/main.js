@@ -4,7 +4,7 @@ import App from "@/App.vue"
 
 import VueRouter from 'vue-router'
 
-import Login from '@/pages/login'
+import Login from '@/pages/Login'
 
 
 Vue.use(VueRouter)
