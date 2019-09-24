@@ -1,11 +1,16 @@
 <template>
   <div class="container">
+    <!-- 关闭的按钮 -->
     <div class="close">
       <span class="iconfont iconicon-test"></span>
     </div>
+
+    <!-- logo -->
     <div class="logo">
       <span class="iconfont iconnew"></span>
     </div>
+
+    <!-- 用户名密码输入框 -->
     <div class="inputs">
       <!-- 输入框组件 -->
       <AuthInput
@@ -15,34 +20,49 @@
         :rule="/^1[0-9]{4,10}$/"
         err_message="手机号码格式不正确"
       ></AuthInput>
+
+      <!-- 昵称 -->
+      <AuthInput
+        placeholder="昵称"
+        v-model="form.nickname"
+        :rule="/^[0-9a-zA-Z\u4e00-\u9fa5]{2,6}$/"
+        err_message="昵称格式不正确"
+      ></AuthInput>
+
+      <!-- 密码 -->
       <AuthInput
         placeholder="密码"
-        type='password'
+        type="password"
         v-model="form.password"
         :rule="/^[0-9a-zA-Z]{3,12}$/"
         err_message="密码格式不正确"
       ></AuthInput>
     </div>
-      <p class="tips">
-        没有账号？ 
-        <router-link to="/register">去注册</router-link>
-      </p>
-    <AuthButton text="登录" @click="handleSubmit"/>
+
+    <p class="tips">
+      有账号？
+      <router-link to="/login">去登录</router-link>
+    </p>
+
+    <!-- <button @click="handleSubmit">登录按钮</button> -->
+    <AuthButton text="注册" @click="handleSubmit" />
   </div>
 </template>
 
 <script>
-//  导入输入框组件
+// 导入请求库
+// import axios from "axios";
+//  导入组件
 import AuthInput from "@/components/AuthInput";
 import AuthButton from "@/components/AuthButton";
-import { log } from 'util';
 export default {
   data() {
     return {
       // 发送给后台的数据
       form: {
         username: "",
-        password: ""
+        password: "",
+        nickname: ""
       }
     };
   },
@@ -59,31 +79,29 @@ export default {
     // 表单提交
     handleSubmit() {
       this.$axios({
-        url: "/login",
-        method: "POST",  // method相当于type
+        url: "/register",
+        method: "POST", // method相当于type
         data: this.form
         // .then的回调函数相当于success
-      }).then( res => {
-        const {message}=res.data
-        if(message=='登录成功'){
-          this.$router.push('/')
-        }else{
-          this.$toast.fail(message)
+      }).then(res => {
+        const { message } = res.data;
+        if (message === "注册成功") {
+          // 跳转到首页
+          this.$router.push("/login");
         }
-      })
+      });
     }
   }
 };
 </script>
 
-<style scoped lang='less'>
-//scoped 作用域样式,2
-//lang声明样式的类型
+<style scoped lang="less">
+// scoped 作用域样式
+// lang声明样式的类型
 .container {
   padding: 20px;
 }
 .close {
-  padding: 20px;
   span {
     font-size: 27 / 360 * 100vw;
   }
@@ -102,11 +120,11 @@ export default {
     margin-bottom: 20px;
   }
 }
-  .tips{
-    text-align: right;
-    margin-bottom: 20px;
-    a{
-      color:#3385ff;
-    }
+.tips {
+  text-align: right;
+  margin-bottom: 20px;
+  a {
+    color: #3385ff;
   }
-</style>
+}
+</style> 
