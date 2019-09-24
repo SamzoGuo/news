@@ -35,7 +35,7 @@
 //  导入输入框组件
 import AuthInput from "@/components/AuthInput";
 import AuthButton from "@/components/AuthButton";
-import { log } from 'util';
+// import { log } from 'util';
 export default {
   data() {
     return {
@@ -63,12 +63,10 @@ export default {
         method: "POST",  // method相当于type
         data: this.form
         // .then的回调函数相当于success
-      }).then( res => {
+      }).then( res => {  
         const {message}=res.data
         if(message=='登录成功'){
-          this.$router.push('/')
-        }else{
-          this.$toast.fail(message)
+          this.$router.push('/parsonal')
         }
       })
     }
