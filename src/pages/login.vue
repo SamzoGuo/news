@@ -64,8 +64,11 @@ export default {
         data: this.form
         // .then的回调函数相当于success
       }).then( res => {  
-        const {message}=res.data
+        const {message,data}=res.data
         if(message=='登录成功'){
+          //保存token。user_id到浏览器本地存储
+          localStorage.setItem('token',data.token)
+          localStorage.setItem('user_id',data.user.id)
           this.$router.push('/parsonal')
         }
       })

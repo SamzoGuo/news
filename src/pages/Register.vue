@@ -87,6 +87,7 @@ export default {
         const { message } = res.data;
         if (message === "注册成功") {
           // 跳转到首页
+          this.$toast.success(message)
           this.$router.push("/login");
         }
       });

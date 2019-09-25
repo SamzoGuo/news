@@ -1,21 +1,58 @@
 <template>
   <div>
     <div class="profile">
-      <img src="http://img0.imgtn.bdimg.com/it/u=4289678215,1835674179&fm=26&gp=0.jpg" alt />
+      <img :src="head_img" alt />
       <div class="profile_center">
         <div class="name">
           <span class="iconfont iconxingbienan"></span>
-          火星网友
+          {{nickname}}
         </div>
         <div class="time">2019-9-24</div>
       </div>
       <span class="iconfont iconjiantou1"></span>
     </div>
+    <CellBar label="我的关注" text="关注的用户" />
+
+    <CellBar label="我的跟帖" text="跟帖/回复" />
+
+    <CellBar label="我的收藏" text="文章/视频" />
+
+    <CellBar label="设置" />
   </div>
 </template>
 
 <script>
-export default {};
+import CellBar from "@/components/CellBar";
+export default {
+  data() {
+    return {
+      nickname: "",
+      head_img: "",
+      gender: ""
+    };
+  },
+  components: {
+    CellBar
+  },
+  mounted() {
+    this.$axios({
+      method: "get",
+      url: "/user/" + localStorage.getItem("user_id"),
+      headers: {
+        Authorization: localStorage.getItem("token")
+      }
+    }).then(res => {
+      const { head_img, nickname, gender } = res.data.data;
+      if (head_img) {
+        this.head_img = this.$axios.defaults.baseURL+head_img;
+      }else{
+          this.head_img=this.$axios.defaults.baseURL+"/uploads/image/IMG1568705287936.jpeg"
+      }
+      this.nickname = nickname;
+      this.gender = gender;
+    });
+  }
+};
 </script>
 
 <style scoped lang='less'>

@@ -36,7 +36,6 @@ var router = new VueRouter({
 })
 
 
-
 //axios的统一的拦截器，拦截响应  每次请求经过
 //固定的声明
 axios.interceptors.response.use(res => {
@@ -48,10 +47,10 @@ axios.interceptors.response.use(res => {
     if (statusCode === 401) {    
         Toast.fail(message);
     }
-
     // 必须要返回res
     return res;
 });
+
 
 new Vue({
     el: "#app",
