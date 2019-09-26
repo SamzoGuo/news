@@ -103,7 +103,7 @@ module.exports = {
          new VueLoaderPlugin(),
          
          new CopyPlugin([
-            { from: 'static', to: 'static' },
+            { from: 'static', to: 'static' },// 把static复制到dist下的static
         ]),
     ]
 

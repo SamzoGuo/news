@@ -14,6 +14,7 @@ import axios from 'axios'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Parsonal from '@/pages/Parsonal'
+import EditProfile from '@/pages/EditProfile'
 
 
 Vue.use(VueRouter)
@@ -32,6 +33,9 @@ var routes = [{
 }, {
     path: '/parsonal',
     component: Parsonal
+},{
+    path:'/edit_profile',
+    component:EditProfile
 }]
 var router = new VueRouter({
     routes
@@ -46,7 +50,7 @@ router.beforeEach((to,from,next)=>{
     //是否有token
     const hasToken=localStorage.getItem('token')
     //判断是否是需要登录权限的页面
-    if(to.path==='/personal'){
+    if(to.path==='/personal'||to.path==='/edit_profile'){
         //判断本地是否有token
         if(hasToken){
             //正常跳转

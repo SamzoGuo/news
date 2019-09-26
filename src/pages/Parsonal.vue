@@ -1,23 +1,25 @@
 <template>
   <div>
-    <div class="profile">
-      <img :src="head_img" alt />
-      <div class="profile_center">
-        <div class="name">
-          <span class="iconfont iconxingbienan"></span>
-          {{nickname}}
+    <router-link to="/edit_profile">
+      <div class="profile">
+        <img :src="head_img" alt />
+        <div class="profile_center">
+          <div class="name">
+            <span class="iconfont iconxingbienan"></span>
+            {{nickname}}
+          </div>
+          <div class="time">2019-9-24</div>
         </div>
-        <div class="time">2019-9-24</div>
+        <span class="iconfont iconjiantou1"></span>
       </div>
-      <span class="iconfont iconjiantou1"></span>
-    </div>
+    </router-link>
     <CellBar label="我的关注" text="关注的用户" />
 
     <CellBar label="我的跟帖" text="跟帖/回复" />
 
     <CellBar label="我的收藏" text="文章/视频" />
 
-    <CellBar label="退出" @click="handleLogout"/>
+    <CellBar label="退出" @click="handleLogout" />
   </div>
 </template>
 
@@ -34,15 +36,15 @@ export default {
   components: {
     CellBar
   },
-  methods:{
-      // 退出登录
-      handleLogout(){
-          //清除本地的token和user_id
-          localStorage.removeItem('token')
-          localStorage.removeItem('user_id')
-          //replace替换上一个页面
-          this.$router.replace('/login')
-      }
+  methods: {
+    // 退出登录
+    handleLogout() {
+      //清除本地的token和user_id
+      localStorage.removeItem("token");
+      localStorage.removeItem("user_id");
+      //replace替换上一个页面
+      this.$router.replace("/login");
+    }
   },
   mounted() {
     this.$axios({
@@ -54,9 +56,10 @@ export default {
     }).then(res => {
       const { head_img, nickname, gender } = res.data.data;
       if (head_img) {
-        this.head_img = this.$axios.defaults.baseURL+head_img;
-      }else{
-          this.head_img=this.$axios.defaults.baseURL+"/uploads/image/IMG1568705287936.jpeg"
+        this.head_img = this.$axios.defaults.baseURL + head_img;
+      } else {
+        this.head_img =
+          this.$axios.defaults.baseURL + "/uploads/image/IMG1568705287936.jpeg";
       }
       this.nickname = nickname;
       this.gender = gender;
