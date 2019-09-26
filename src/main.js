@@ -5,16 +5,15 @@ import App from "@/App.vue"
 import VueRouter from 'vue-router'
 
 import Vant from 'vant'
-import {
-    Toast
-} from 'vant'
+import {Toast} from 'vant'
 
 import axios from 'axios'
 
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
-import Parsonal from '@/pages/Parsonal'
+import personal from '@/pages/personal'
 import EditProfile from '@/pages/EditProfile'
+import Index from '@/pages/Index'
 
 
 Vue.use(VueRouter)
@@ -31,11 +30,14 @@ var routes = [{
     path: '/register',
     component: Register
 }, {
-    path: '/parsonal',
-    component: Parsonal
+    path: '/personal',
+    component: personal
 },{
     path:'/edit_profile',
     component:EditProfile
+},{
+    path:'/',
+    component:Index
 }]
 var router = new VueRouter({
     routes
