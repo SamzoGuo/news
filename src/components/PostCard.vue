@@ -1,20 +1,22 @@
 <template>
   <div class="card">
     <div class="card-left">
-      <div class="post-title">林志玲穿透视黑纱裙米兰看腹部微隆显孕味林志玲穿透视黑纱裙米兰看腹部微隆显孕味</div>
+      <div class="post-title">{{post.title}}</div>
       <p class="post-info">
-        <span>火星时报</span>
-        <span>100跟帖</span>
+        <span>{{post.user.nickname}}</span>
+        <span>{{post.comment_length}}跟帖</span>
       </p>
     </div>
     <div class="card-img">
-        <img src="http://img0.imgtn.bdimg.com/it/u=1041057022,2271638432&fm=26&gp=0.jpg" alt />
+        <img :src="post.cover[0].url" alt />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+    props:['post']
+};
 </script>
 
 <style scoped lang="less">

@@ -13,7 +13,7 @@
 
     <van-tabs v-model="active" sticky swipeable>
       <van-tab v-for="(item,index) in categories" :title="item.name" :key="index">
-        <PostCard v-for="index in 8" :key="index" />
+        <PostCard v-for="(item,index) in posts" :key="index" :post="item" />
       </van-tab>
     </van-tabs>
   </div>
@@ -25,7 +25,9 @@ export default {
   data() {
     return {
       active:localStorage.getItem('token')?1:0, //默认的标签栏
-      categories:[]
+      categories:[],
+      cid:999,
+      posts:[]
     };
   },
   components: {
@@ -40,11 +42,27 @@ export default {
              Authorization: localStorage.getItem("token")
           }
       }
+    //  请求栏目
       this.$axios(config)
       .then(res=>{
           this.categories=res.data.data
-          console.log(this.categories);
+           console.log(this.categories);
       })
+      //请求文章
+      this.$axios({
+          url:`post?category=${this.cid}`
+      }).then(res=>{
+          this.posts=res.data.data
+          console.log(this.posts);
+          
+      })
+  },
+  //监听active获取栏目id
+  watch:{
+      active(){
+          this.cid=this.categories[this.active].id
+          console.log(this.cid);
+      }
   }
 };
 </script>
