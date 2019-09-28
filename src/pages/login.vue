@@ -69,7 +69,7 @@ export default {
           //保存token。user_id到浏览器本地存储
           localStorage.setItem('token',data.token)
           localStorage.setItem('user_id',data.user.id)
-          this.$router.push('/parsonal')
+          this.$router.push('/personal')
         }
       })
     }
